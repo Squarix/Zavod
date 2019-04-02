@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ZavodModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="departaments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="text" />
+          <Property Name="image" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sells">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="bigint" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="bigint" Nullable="false" />
+          <Property Name="available" Type="int" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="30" />
+          <Property Name="photo" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="role" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="departament_id" Type="bigint" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="workdays">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="bigint" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="product_id" Type="bigint" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_sells_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="sells" Type="Self.sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sells">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sells_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="sells" Type="Self.sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sells">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_departaments">
+          <End Role="departaments" Type="Self.departaments" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departaments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="departament_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_workdays_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="workdays" Type="Self.workdays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="workdays">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_workdays_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="workdays" Type="Self.workdays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="workdays">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ZavodModelContainer">
+          <EntitySet Name="departaments" EntityType="Self.departaments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sells" EntityType="Self.sells" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="workdays" EntityType="Self.workdays" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_sells_products" Association="Self.FK_sells_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="sells" EntitySet="sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sells_users" Association="Self.FK_sells_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="sells" EntitySet="sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_products" Association="Self.FK_stock_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_departaments" Association="Self.FK_users_departaments">
+            <End Role="departaments" EntitySet="departaments" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_workdays_products" Association="Self.FK_workdays_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="workdays" EntitySet="workdays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_workdays_users" Association="Self.FK_workdays_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="workdays" EntitySet="workdays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZavodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_users_departaments" FromRole="departaments" ToRole="users" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sells" Relationship="Self.FK_sells_products" FromRole="products" ToRole="sells" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_stock_products" FromRole="products" ToRole="stock" />
+          <NavigationProperty Name="Workdays" Relationship="Self.FK_workdays_products" FromRole="products" ToRole="workdays" />
+        </EntityType>
+        <EntityType Name="Sells">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_sells_products" FromRole="sells" ToRole="products" />
+          <NavigationProperty Name="User" Relationship="Self.FK_sells_users" FromRole="sells" ToRole="users" />
+        </EntityType>
+        <EntityType Name="Stocks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Available" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_stock_products" FromRole="stock" ToRole="products" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Last_name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartementId" Type="Int64" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Departament" Relationship="Self.FK_users_departaments" FromRole="users" ToRole="departaments" />
+          <NavigationProperty Name="Sells" Relationship="Self.FK_sells_users" FromRole="users" ToRole="sells" />
+          <NavigationProperty Name="Workdays" Relationship="Self.FK_workdays_users" FromRole="users" ToRole="workdays" />
+        </EntityType>
+        <EntityType Name="Workdays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_workdays_products" FromRole="workdays" ToRole="products" />
+          <NavigationProperty Name="User" Relationship="Self.FK_workdays_users" FromRole="workdays" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_users_departaments">
+          <End Role="departaments" Type="ZavodModel.Departements" Multiplicity="0..1" />
+          <End Role="users" Type="ZavodModel.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departaments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="DepartementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sells_products">
+          <End Role="products" Type="ZavodModel.Products" Multiplicity="1" />
+          <End Role="sells" Type="ZavodModel.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sells">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_products">
+          <End Role="products" Type="ZavodModel.Products" Multiplicity="1" />
+          <End Role="stock" Type="ZavodModel.Stocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_workdays_products">
+          <End Role="products" Type="ZavodModel.Products" Multiplicity="1" />
+          <End Role="workdays" Type="ZavodModel.Workdays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="workdays">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sells_users">
+          <End Role="users" Type="ZavodModel.Users" Multiplicity="1" />
+          <End Role="sells" Type="ZavodModel.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="sells">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_workdays_users">
+          <End Role="users" Type="ZavodModel.Users" Multiplicity="1" />
+          <End Role="workdays" Type="ZavodModel.Workdays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="workdays">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZavodDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departements" EntityType="ZavodModel.Departements" />
+          <EntitySet Name="Products1" EntityType="ZavodModel.Products" />
+          <EntitySet Name="Sells1" EntityType="ZavodModel.Sells" />
+          <EntitySet Name="Stocks1" EntityType="ZavodModel.Stocks" />
+          <EntitySet Name="Users1" EntityType="ZavodModel.Users" />
+          <EntitySet Name="Workdays1" EntityType="ZavodModel.Workdays" />
+          <AssociationSet Name="FK_users_departaments" Association="Self.FK_users_departaments">
+            <End Role="departaments" EntitySet="Departements" />
+            <End Role="users" EntitySet="Users1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sells_products" Association="Self.FK_sells_products">
+            <End Role="products" EntitySet="Products1" />
+            <End Role="sells" EntitySet="Sells1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_products" Association="Self.FK_stock_products">
+            <End Role="products" EntitySet="Products1" />
+            <End Role="stock" EntitySet="Stocks1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_workdays_products" Association="Self.FK_workdays_products">
+            <End Role="products" EntitySet="Products1" />
+            <End Role="workdays" EntitySet="Workdays1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sells_users" Association="Self.FK_sells_users">
+            <End Role="users" EntitySet="Users1" />
+            <End Role="sells" EntitySet="Sells1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_workdays_users" Association="Self.FK_workdays_users">
+            <End Role="users" EntitySet="Users1" />
+            <End Role="workdays" EntitySet="Workdays1" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ZavodModelContainer" CdmEntityContainer="ZavodDB">
+          <EntitySetMapping Name="Departements">
+            <EntityTypeMapping TypeName="ZavodModel.Departements">
+              <MappingFragment StoreEntitySet="departaments">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products1">
+            <EntityTypeMapping TypeName="ZavodModel.Products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="Image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sells1">
+            <EntityTypeMapping TypeName="ZavodModel.Sells">
+              <MappingFragment StoreEntitySet="sells">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="ProductId" ColumnName="product_id" />
+                <ScalarProperty Name="UserId" ColumnName="user_id" />
+                <ScalarProperty Name="Amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks1">
+            <EntityTypeMapping TypeName="ZavodModel.Stocks">
+              <MappingFragment StoreEntitySet="stock">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="ProductId" ColumnName="product_id" />
+                <ScalarProperty Name="Available" ColumnName="available" />
+                <ScalarProperty Name="Price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users1">
+            <EntityTypeMapping TypeName="ZavodModel.Users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="First_name" ColumnName="first_name" />
+                <ScalarProperty Name="Last_name" ColumnName="last_name" />
+                <ScalarProperty Name="Position" ColumnName="position" />
+                <ScalarProperty Name="Photo" ColumnName="photo" />
+                <ScalarProperty Name="Role" ColumnName="role" />
+                <ScalarProperty Name="DepartementId" ColumnName="departament_id" />
+                <ScalarProperty Name="Login" ColumnName="login" />
+                <ScalarProperty Name="Password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workdays1">
+            <EntityTypeMapping TypeName="ZavodModel.Workdays">
+              <MappingFragment StoreEntitySet="workdays">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="UserId" ColumnName="user_id" />
+                <ScalarProperty Name="StartDate" ColumnName="start_date" />
+                <ScalarProperty Name="EndDate" ColumnName="end_date" />
+                <ScalarProperty Name="ProductId" ColumnName="product_id" />
+                <ScalarProperty Name="Amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

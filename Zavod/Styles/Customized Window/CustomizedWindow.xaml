@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Zavod.Styles.Customized_Window">
+    <Style x:Key="VS2012WindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                NonClientFrameEdges="None"
+                GlassFrameThickness="0"
+                ResizeBorderThickness="7"
+                CaptionHeight="32"
+                CornerRadius="0"
+            />
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

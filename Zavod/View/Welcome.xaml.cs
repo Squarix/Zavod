@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Zavod
+namespace Zavod.View
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Welcome.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Welcome : Page
     {
-        public MainWindow()
+        public Welcome()
         {
             InitializeComponent();
         }

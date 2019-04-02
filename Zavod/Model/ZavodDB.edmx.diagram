@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="844abb7b23594d0591cc90dace2e2701" Name="Diagram1">
+        <EntityTypeShape EntityType="ZavodModel.Departements" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodModel.Products" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodModel.Sells" Width="1.5" PointX="6.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodModel.Stocks" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodModel.Users" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZavodModel.Workdays" Width="1.5" PointX="8.25" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="ZavodModel.FK_users_departaments" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodModel.FK_sells_products" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodModel.FK_stock_products" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodModel.FK_workdays_products" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodModel.FK_sells_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ZavodModel.FK_workdays_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
